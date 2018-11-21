@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), MainView {
     lateinit var viewIamge: RelativeLayout
     lateinit var imgBreed: ImageView
     lateinit var loading: ProgressBar
+    lateinit var loadingList: ProgressBar
     lateinit var presenter: MainPresenter
     lateinit var adapter: NewBreedRecyclerAdapter
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), MainView {
         viewIamge = findViewById(R.id.view_image)
         imgBreed = findViewById(R.id.img_breed)
         loading = findViewById(R.id.loading)
+        loadingList = findViewById(R.id.loading_list)
 
         viewIamge.setOnClickListener {
             it.visibility = View.GONE
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun populateBreedList(response: ArrayList<Breed>) {
         adapter = NewBreedRecyclerAdapter(this, response, presenter)
         recyclerBreed.adapter = adapter
+        loadingList.visibility = View.GONE
     }
 
     override fun showBreedImage(url: String) {
