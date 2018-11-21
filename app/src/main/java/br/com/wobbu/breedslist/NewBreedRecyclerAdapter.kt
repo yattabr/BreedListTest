@@ -80,12 +80,8 @@ class NewBreedRecyclerAdapter(
             if (breedName == txtTitle) {
                 presenter.loadBreedImageByName(breedName.text.toString())
             } else {
-                var name = breedName.text.toString()
-                Toast.makeText(
-                    context,
-                    "$name is a sub-breeds and they don't have image to display",
-                    Toast.LENGTH_SHORT
-                ).show()
+                var subBreedConcat = "${item.breedType}-${breedName.text}"
+                presenter.loadBreedImageByName(subBreedConcat)
             }
         }
     }
