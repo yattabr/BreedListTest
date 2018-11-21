@@ -59,9 +59,9 @@ class MainPresenter(var mainView: MainView) {
     }
 
     fun performSearch(origList: ArrayList<Breed>, constraint: CharSequence): ArrayList<Breed> {
-        val results = java.util.ArrayList<Breed>()
-        val toAdd = java.util.ArrayList<Breed>()
-        val toRemove = java.util.ArrayList<String>()
+        val results = ArrayList<Breed>()
+        val toAdd = ArrayList<Breed>()
+        val toRemove = ArrayList<String>()
 
         for (cd in origList) {
             if (cd.breedNames.isNotEmpty()) {

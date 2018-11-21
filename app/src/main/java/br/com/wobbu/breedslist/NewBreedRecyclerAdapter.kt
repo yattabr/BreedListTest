@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import java.util.*
 
 
 class NewBreedRecyclerAdapter(
@@ -22,7 +20,6 @@ class NewBreedRecyclerAdapter(
 
     init {
         itemList = origList
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,7 +44,6 @@ class NewBreedRecyclerAdapter(
         lateinit var item: Breed
 
         fun bind(currentItem: Breed) {
-
             item = currentItem
 
             txtTitle.text = item.breedType
@@ -55,6 +51,7 @@ class NewBreedRecyclerAdapter(
             if (item.breedNames.isEmpty()) {
                 viewBreedName.visibility = View.GONE
             } else {
+                viewBreedName.removeAllViews()
                 viewBreedName.visibility = View.VISIBLE
                 for (name in item.breedNames) {
                     val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -90,8 +87,10 @@ class NewBreedRecyclerAdapter(
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val oReturn = FilterResults()
+                if (itemList.isEmpty())
+                    itemList = ArrayList(origList)
                 if (constraint != null && constraint.isNotEmpty()) {
-                    var results = presenter.performSearch(origList, constraint)
+                    val results = presenter.performSearch(origList, constraint)
                     oReturn.values = results
                     oReturn.count = results.size
                 } else {
