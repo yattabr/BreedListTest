@@ -57,4 +57,33 @@ class MainPresenter(var mainView: MainView) {
             }
         }
     }
+
+    fun performSearch(origList: ArrayList<Breed>, constraint: CharSequence): ArrayList<Breed> {
+        val results = java.util.ArrayList<Breed>()
+        val toAdd = java.util.ArrayList<Breed>()
+        val toRemove = java.util.ArrayList<String>()
+
+        for (cd in origList) {
+            if (cd.breedNames.isNotEmpty()) {
+                for (i in cd.breedNames) {
+                    if (i.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        toAdd.add(cd)
+                    } else {
+                        toRemove.add(i)
+                    }
+                }
+            }
+
+            if (cd.breedType.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                toAdd.add(cd)
+            }
+        }
+
+        results.addAll(toAdd)
+        for (i in 0 until results.size) {
+            results[i].breedNames.removeAll(toRemove)
+        }
+
+        return results
+    }
 }
